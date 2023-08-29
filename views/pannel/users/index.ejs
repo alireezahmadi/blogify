@@ -1,0 +1,85 @@
+<%- contentFor('title') %>
+    کاربران
+    <%- contentFor('body') %>
+        <!-- Card Sextion Starts Here -->
+        <div style="flex:2">
+
+            <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+
+                <!-- card -->
+
+                <div class=" rounded overflow-hidden shadow bg-white mx-2 w-full">
+                    <div class="px-6 py-2 border-b border-light-grey">
+                        <div class="font-bold text-xl rtl">لیست مقالات</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class=" rtl table text-grey-darkest">
+                            <thead class="bg-grey-dark text-white text-normal">
+                                <tr>
+                                    <th scope="col">شماره</th>
+                                    <th scope="col">نام کاربری</th>
+                                    <th scope="col">ایمیل</th>
+                                    <th scope="col">نقش</th>
+                                    <th scope="col">عضویت ویژه</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(users.docs.length> 0){%>
+                                    <% users.docs.forEach((user, index)=>{%>
+                                        <tr>
+                                            <th scope="row"><%- index +1 %></th>
+
+                                            <td>
+                                                <p class="rtl text-sm "><%- user.username %></p>
+                                            </td>
+                                            <td><%- user.email %></td>
+
+                                            <td style="display: flex; flex-direction: row; gap: 10px;">
+                                              <% if(user.roles.Admin){%>
+                                                <span style="background: #689F38; color: white;padding: 8px 12px;">ادمین</span>    
+                                             <%}%>
+                                             <% if(user.roles.Author){%>
+                                                <span style="background: #039BE5; color: white;padding: 8px 12px;">نویسنده</span>    
+                                             <%}%>
+                                             <% if(user.roles.User){%>
+                                                <span style="background: #607D8B; color: white; padding: 8px 12px;">کاربرساده</span>    
+                                             <%}%>
+                                            </td>
+                                            <td>
+                                                <%- new Date(user.specialUser) > Date.now()? '✅': '❌' %>
+                                            </td>
+                                            <td>
+                                                <div class="flex flex-row justify-center items-center ">
+                                                    <div>
+                                                        <button class="px-4 py-2 bg-blue-500 text-center text-white rounded-sm">
+                                                            <a href="/panel/profile/<%- user.email%>">ویرایش</a>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </td>
+
+
+
+                                        </tr>
+
+                                    <%})%>
+
+
+                                <%} %>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /card -->
+
+            </div>
+
+            <%- include('../pagination/index',{obj:users, url:'/panel/users'}) %>
+        </div>
+
+        <!-- /Cards Section Ends Here -->

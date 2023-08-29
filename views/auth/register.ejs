@@ -1,0 +1,54 @@
+<%- contentFor('title') %>
+ثبت نام
+<%- contentFor('body') %> 
+<div class=" rtl contain py-16">
+    <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+        <% if(messages.length > 0){%>
+        <div class="flex flex-col items-end text-red-500 bg-red-100 px-2 py-3 mb-3">
+            <% messages.forEach(err => {%>
+               <p> <%- err %> </p>   
+            <%}) %>
+        </div>
+        
+        <%} %>
+        <h2 class="text-2xl uppercase font-medium mb-1">ثبت نام</h2>
+      
+       
+        <form  method="post" autocomplete="off">
+            <div class="space-y-2">
+                <div>
+                    <label for="username" class="text-gray-600 mb-2 block">نام کاربری</label>
+                    <input type="text" name="username" value="alireza" id="username" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="fulan fulana">
+                </div>
+                <div>
+                    <label for="email" class="text-gray-600 mb-2 block">ایمیل</label>
+                    <input type="email" name="email" id="email" value="adimin@gmail.com" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="youremail.@domain.com">
+                </div>
+                <div>
+                    <label for="password" class="text-gray-600 mb-2 block">گذرواژه</label>
+                    <input type="password" name="password" id="password" value="Admin986532*" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400" placeholder="*******">
+                </div>
+             
+              
+            </div>
+            
+            <div class="mt-4">
+                <button type="submit" class="block w-full py-2 text-center text-red-500 bg-primary border border-primary rounded hover:bg-transparent hover:bg-primary transition uppercase font-roboto font-medium">ثبت نام
+                    </button>
+            </div>
+        </form>
+
+        <!-- login with -->
+        <div class="mt-6 flex justify-center relative">
+            <div class="text-gray-600 uppercase px-3 bg-white z-10 relative">یا ثبت نام با</div>
+            <div class="absolute left-0 top-3 w-full border-b-2 border-gray-200"></div>
+        </div>
+        <div class="mt-4 flex gap-4">
+           
+            <a href="/auth/google" class="w-full py-2 text-center text-white bg-red-600 rounded uppercase font-roboto font-medium text-sm hover:bg-red-500">google</a>
+        </div>
+        <!-- ./login with -->
+
+        <p class="mt-4 text-center text-gray-600">حسابی دارید؟ <a href="/auth/login" class="text-primary">وارد شوید</a></p>
+    </div>
+</div>

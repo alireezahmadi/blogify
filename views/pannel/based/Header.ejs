@@ -1,0 +1,14 @@
+<header class="bg-nav">
+    <div class="flex justify-between">
+        <div class="p-1 mx-3 inline-flex items-center">
+           
+        <a href="/"> <img src="/assets/images/logo.svg" alt="Logo" class="w-32"></a>
+        </div>
+        <div class="p-1 flex flex-row items-center">
+           
+
+            <a href="/panel/profile/<%- auth?.user?.email%>"  class="text-white p-2 no-underline hidden md:block lg:block">کاربر: <%- auth?.user?.username || auth?.user?.email %></a>
+            
+        </div>
+    </div>
+</header>

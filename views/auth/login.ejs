@@ -1,0 +1,61 @@
+<%- contentFor('title') %>
+ورود
+<%- contentFor('body') %>
+    <div class="contain py-16 rtl">
+        <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+            <% if(messages.length > 0){%>
+                <div class="flex flex-col items-end text-red-500 bg-red-100 px-2 py-3 mb-3">
+                        <% messages.forEach(err=> {%>
+                            <p> <%- err %> </p>
+                        <%}) %>
+                </div>
+
+            <%} %>
+            <h2 class="text-2xl uppercase font-medium mb-1">ورود</h2>
+           
+
+                    <form method="post" autocomplete="off">
+                        <div class="space-y-2">
+                            <div>
+                                <label for="email" class="text-gray-600 mb-2 block">ایمیل</label>
+                                <input type="email" value="admin@gmail.com" name="email" id="email"
+                                    class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
+                                    placeholder="youremail.@domain.com">
+                            </div>
+                            <div>
+                                <label for="password" class="text-gray-600 mb-2 block">گذرواژه</label>
+                                <input type="password" value="Admin986532*" name="password" id="password"
+                                    class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
+                                    placeholder="*******">
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mt-6">
+                            <div class="flex items-center">
+                                <input type="checkbox" name="remember" id="remember"
+                                    class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                                <label for="remember" class="text-gray-600 ml-3 cursor-pointer">مرا به خاطر بسپار</label>
+                            </div>
+                            <a href="/auth/forgotpassword" class="text-primary">فراموشی گذرواژه</a>
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit"
+                                class="block text-red-500 w-full py-2 text-center text-xl  bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">ورود</button>
+                        </div>
+                    </form>
+
+                    <!-- login with -->
+                    <div class="mt-6 flex justify-center relative">
+                        <div class="text-gray-600 uppercase px-3 bg-white z-10 relative">یا ورود با</div>
+                        <div class="absolute left-0 top-3 w-full border-b-2 border-gray-200"></div>
+                    </div>
+                    <div class="mt-4 flex gap-4">
+                        
+                        <a href="/auth/google"
+                            class="w-full py-2 text-center text-white bg-red-600 rounded uppercase font-roboto font-medium text-sm hover:bg-red-500">google</a>
+                    </div>
+                    <!-- ./login with -->
+
+                    <p class="mt-4 text-center text-gray-600">حسابی ندارید ثبت نام کنید<a href="/auth/register"
+                            class="text-primary mr-1">ثبت نام</a></p>
+        </div>
+    </div>

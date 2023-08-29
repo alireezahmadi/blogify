@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./base/headerRefrence') %>
+<title><%- defineContent('title') %></title>
+<body>
+    <!-- header -->
+    <%- include('./base/Header') %>
+    <!-- ./header -->
+
+    <!-- navbar -->
+    <%- include('./base/Navbar') %>
+    <!-- ./navbar -->
+
+  
+    <%- defineContent('body') %>
+
+
+    <!-- footer -->
+    <%- include('./base/Footer') %>
+    <!-- ./footer -->
+
+    <%- script %>
+</body>
+
+</html>

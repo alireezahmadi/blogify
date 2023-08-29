@@ -1,0 +1,113 @@
+<%- contentFor('title')%>
+    <%-blog.title%>
+        <%- contentFor('body')%>
+            <div class="px-6 py-16 rtl">
+
+                <div class="container grid grid-cols-2 gap-6">
+                    <div>
+                        <img src="<%- blog.image%>" alt="<%- blog.title%>" class="w-full">
+
+                    </div>
+
+                    <div>
+                        <h2 class="text-3xl font-medium uppercase mb-2"><%-blog.title%></h2>
+                        <div class=" pt-5 text-xl text-gray-500 ml-3">بازدید: <%- blog.viewCount.length %></div>
+                        <div class="space-y-2">
+                            <p class="text-gray-800 font-semibold space-x-2">
+                                <span>نویسنده: </span>
+                                <span class="text-green-600"><a href="/blog/author/<%-blog.author.username%>"><%-blog.author.username%></a></span>
+                            </p>
+
+                        </div>
+
+                        <div class="space-y-2">
+                            <p class="text-gray-800 font-semibold space-x-2">
+                                <span>دسته بندی: </span>
+                                <% for(let category of blog.categories){%>
+                                    
+                                    <span class="text-green-600"># <a href="/blog/category/<%-category.slug %>"><%-category.title %></a></span>
+                                <%} %>
+                            </p>
+
+                        </div>
+                        <% if(blog.isSpecial){%>
+                            <div class="flex items-center mb-4">
+
+                                <div class="flex gap-1 text-sm text-yellow-400">
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                </div>
+                                <span>مخصوص اعضای ویژه</span>
+                            </div>
+
+              
+                            <% if(auth?.user?.isSpecialUser()){%>
+                                <p class="px-4 py-2 bg-green-500 rounded-md text-green-200" >شما جزو اعضای ویژه سایت هستید</p>
+                            <%}else{%>
+                                <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
+                                    <a href="/upgrade/panel"
+                                        class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
+                                        <i class="fa-solid fa-bag-shopping"></i> ارتقای پنل کاربری
+                                    </a>
+    
+                                </div>
+                                
+                            <%} %>
+                            <% if(auth?.user?.isSpecialUser()){%>
+                                <p class="mt-4 text-gray-600">
+                                    <%- blog.description%>
+                                </p>
+                            <%}else{%>
+                                <p class="mt-4 text-gray-600">
+                                   این مقاله مخصوص اعضای ویژه هست
+                                </p> 
+                                
+                            <%} %>
+                            <%}else{%>
+                                <p class="mt-4 text-gray-600">
+                                    <%- blog.description%>
+                                </p>    
+                            <%} %>
+
+                            
+
+                               
+
+                    </div>
+                </div>
+                <%- include('./relatedBlogs', {relatedBlogs})%>
+                <!-- COMMENT -->
+                <% if(auth.check){%>
+                    <%- include('./comment', {blog})%>
+
+                        <%}else{%>
+                            <div class="px-3 py-2 rounded-md text-white"
+                                style="background:#fd3d57; margin: 3rem auto 0; width:500px;">
+                                <p>برای ثبت نظر ابتدا وارد حساب کاربری خود شوید</p>
+                            </div>
+                            <%} %>
+
+            </div>
+            <script>
+                console.clear()
+                console.log('this is a detail page')
+                const form = document.getElementById('commentForm')
+                const replyButtons = document.querySelectorAll('.replyButton')
+                Array.from(replyButtons).forEach(replyBtn => {
+                    replyBtn.addEventListener('click', (e) => {
+                        const parent = e.target.dataset.id
+                        const text = e.target.closest('article').querySelector('.description').textContent
+
+                        form.getElementsByTagName('textarea')[0].placeholder = 'پاسخی بنویسید...'
+                        form.querySelector('button[type=submit]').textContent = 'پاسخ'
+                        const input = document.createElement('input')
+                        input.name = 'parent'
+                        input.type = 'hidden'
+                        input.value = parent
+                        form.prepend(input)
+
+                    })
+                })
+            </script>

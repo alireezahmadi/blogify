@@ -1,0 +1,99 @@
+<aside id="sidebar" class="bg-side-nav w-1/2 md:w-1/6 lg:w-1/6 border-r border-side-nav hidden md:block lg:block">
+
+    <ul class="list-reset flex flex-col">
+        <% if(auth?.roles.includes(1001)){%>
+
+
+            <li
+                class="w-full h-full py-3 px-2 border-b border-light-border <%- url === '/panel/users' ? 'bg-white':'' %>">
+                <a href="/panel/users"
+                    class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                    لیست کاربران
+
+                </a>
+            </li>
+            <li
+                class="w-full h-full py-3 px-2 border-b border-light-border <%- url === '/panel/categories' ? 'bg-white':'' %>">
+                <a href="/panel/categories"
+                    class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                    لیست دسته بندی
+
+                </a>
+            </li>
+
+            <li
+                class="w-full h-full py-3 px-2 border-b border-light-border <%- url === '/panel/category/create' ? 'bg-white':'' %>">
+                <a href="/panel/categories/create"
+                    class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                    ایجاد دسته بندی
+
+                </a>
+            </li>
+            <li
+                class="w-full h-full py-3 px-2 border-b border-light-border <%- url === '/panel/blogs' ? 'bg-white':'' %>">
+                <a href="/panel/blogs"
+                    class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                    لیست مقالات
+
+                </a>
+            </li>
+
+            <li
+                class=" w-full h-full py-3 px-2 border-b border-light-border <%- url == '/panel/blogs/create' ? 'bg-white':'' %> ">
+                <a href="/panel/blogs/create"
+                    class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                    ایجاد مقاله
+
+                </a>
+            </li>
+
+            <li
+                class="w-full h-full py-3 px-2 border-b border-light-border <%- url == '/panel/comment/getAll' ? 'bg-white':'' %>">
+                <a href="/panel/comment/getAll"
+                    class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                    دیدگاها
+
+                </a>
+            </li>
+
+            <li
+                class="w-full h-full py-3 px-2 border-b border-light-border <%- url == '/panel/upgrade/create' ? 'bg-white':'' %>">
+                <a href="/panel/upgrade/create"
+                    class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                    ایجاد ارتقای پنل کاربری
+
+                </a>
+            </li>
+            <%} %>
+            <% if(auth?.roles.includes(1003) ){%>
+                <li
+                class=" w-full h-full py-3 px-2 border-b border-light-border <%- url == '/panel/blogs/create' ? 'bg-white text-red':'' %> ">
+                <a href="/panel/blogs/create"
+                    class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                    ایجاد مقاله
+
+                </a>
+            </li>
+            <%} %>
+            
+                <li
+                    class="w-full h-full py-3 px-2 border-b border-light-border <%- url == `/panel/profile/${auth.user.email}` ? 'bg-white':'' %>">
+                    <a href="/panel/profile/<%- auth.user.email%>"
+                        class="flex flex-row-reverse items-center font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+
+                        پروفایل
+
+                    </a>
+                </li>
+
+    </ul>
+
+</aside>

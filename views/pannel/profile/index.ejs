@@ -1,0 +1,76 @@
+<%- contentFor('title') %>
+  پروفایل
+
+  <%- contentFor('body') %>
+    <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+      <!-- component -->
+      
+      <section class="max-w-4xl p-6 mx-auto bg-gray-800 rounded-md shadow-md dark:bg-gray-800 mt-10">
+        <h1 class="text-xl text-right font-bold text-white capitalize dark:text-white">پروفایل کاربر</h1>
+       
+        <form action="/panel/profile/edite/<%- profile.email%>" method="post" class="rtl">
+          <div class="inputForm mt-4">
+
+            <div>
+              <label class="text-white dark:text-gray-200" for="username">نام کاربر</label>
+              <input id="username" name="username" type="text" value="<%- profile.username %>"
+                class="rtl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+            </div>
+
+
+            <div>
+              <label class="text-white dark:text-gray-200" for="email">ایمیل</label>
+              <input 
+                  id="email"
+                  name="email"
+                  type="text"
+                  value="<%- profile.email %>" 
+                  <%- !auth.roles.includes(1001) ? 'disabled':null %>
+
+                class="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+            </div>
+
+            <div>
+              <label class="text-white dark:text-gray-200" for="roles">نقش کاریر</label>
+              <select multiple name="roles"
+                <%- !auth.roles.includes(1001) ? 'disabled':null %>
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                <option value="1002" <%- profile.roles.includes(1002) ? 'selected' :null%>>کاربر ساده</option>
+                <option value="1001" <%- profile.roles.includes(1001) ? 'selected' :null%>>مدیر</option>
+                <option value="1003" <%- profile.roles.includes(1003) ? 'selected' :null%>>نویسنده</option>
+
+              </select>
+            </div>
+            <div>
+              <label class="text-white dark:text-gray-200" for="date">کاربر ویژه تا</label>
+              <input 
+                 id="date"
+                 name="specialUser"
+                 type="date"
+                 value="<%-profile.specialUser%>"
+                 <%- !auth.roles.includes(1001) ? 'disabled':null %>
+                class=" rtl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                <label  style="flex: 2;" class="text-white dark:text-gray-200" for="isSpecialUser">کاربر ویژه</label>
+                <input 
+                  style="flex: 1;" 
+                  id="isSpecialUser" 
+               
+                  name="isSpecialUser" type="checkbox" <%- profile.isSpecialUser ? 'checked' :null %>
+                  <%- !auth.roles.includes(1001) ? 'disabled':null %>
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md
+                dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500
+                focus:outline-none focus:ring">
+              
+            </div>
+          
+            <div class="flex justify-end mt-6">
+              <button type="submit"
+                class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">ویرایش</button>
+            </div>
+        </form>
+      </section>
+
+    </main>

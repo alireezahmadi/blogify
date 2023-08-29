@@ -1,0 +1,47 @@
+<% if(obj.totalPages >= 1 && obj.hasNextPage || obj.hasPrevPage){%>
+    <nav aria-label="Page navigation" class="mt-6 ml-5 ">
+        <ul class="list-style-none space-x-2 flex flex-row items-center">
+            <% if(obj.hasPrevPage ){%>
+                <li>
+                    <a class="relative block rounded bg-transparent px-1 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
+                        href="<%- url%>?pageNum=<%-obj.prevPage%>&pageLimit=<%-obj.limit%>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            <%} %>
+            <% for(let page=1 ; page < obj.totalPages +1; page++){%>   
+                           
+                        <li>
+                            <span class="relative block rounded <%- page == obj.page ? 'bg-red-500':''%> px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 "
+                            >
+                            <% if(page == obj.page){%> 
+                                 <%- page %> 
+                                <%} else {%>
+                                    <a class="relative cursor-pointer block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 "
+                                        href="<%- url%>?pageNum=<%- page %>&pageLimit=<%-obj.limit%>"
+                                    >
+                                        <%- page %>
+                                    </a>
+                            <%}%>
+                        </span>
+                        </li>
+                    
+            <% } %>
+                
+           
+            <% if(obj.hasNextPage ){%>
+                <li>
+                    <a class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 "
+                        href="<%- url%>?pageNum=<%-obj.nextPage%>&pageLimit=<%-obj.limit%>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <%} %>
+           
+           
+            
+    
+        </ul>
+    </nav>
+    
+<%} %>

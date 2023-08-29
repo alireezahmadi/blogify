@@ -1,0 +1,46 @@
+<div class="container pb-16">
+    <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6 rtl">
+       <%- title %></h2>
+    <div class="grid grid-cols-2  md:grid-cols-4 gap-6 rtl">
+        <% if(objects.length > 0){%>
+            <% objects.forEach(blog => {%>
+                <div class="bg-white shadow rounded overflow-hidden group max-h-[400px] flex flex-col justify-between ">
+                   <div class="relative">
+                       <img src="<%- blog.image %>" alt="product 1" class="w-full">
+                      
+                   </div>
+                   <div class="pt-4 pb-3 px-4">
+                       <a href="/blog/<%- blog.slug %>">
+                           <h6 class=" text-md font-semibold mb-2 text-gray-800 hover:text-primary transition">
+                            <%- blog.title.substr(0,100) %> ...
+                            </h6>
+                       </a>
+                       <div class=" mb-1 space-x-2">
+                           <p class="text-xl text-primary font-semibold">
+                            <% if(blog.isSpecial){%>
+                                
+                                <div class="flex gap-1 text-sm text-yellow-400">
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                </div>
+                                <div class="font-semibold" style="color: red;" >مخصوص اعضای ویژه</div>
+                            <%}else{%>
+                                رایگان    
+                            <%} %>
+                           </p>
+                           
+                       </div>
+                       
+                   </div>
+                   <a href="/blog/<%- blog.slug %>"
+                       class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">
+                       بازدید</a>
+               </div>
+                
+            <%}) %>    
+        <%} %>
+    
+    </div>
+</div>

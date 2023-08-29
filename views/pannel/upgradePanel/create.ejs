@@ -1,0 +1,59 @@
+<%- contentFor('title') %>
+  ایجاد ارتقای پنل کاربری
+  <%- contentFor('body') %>
+    <main class=" rtl bg-white-300 flex-1 p-3 overflow-hidden">
+      <!-- component -->
+      <section class="max-w-4xl p-6 mx-auto bg-gray-800 rounded-md shadow-md dark:bg-gray-800 mt-10">
+        <h1 class="text-xl font-bold text-white capitalize dark:text-white mb-2">ایجاد ارتقای پنل کاربری</h1>
+        <% if(errorsMsg.length > 0){%>
+          <div class="flex flex-col items-start text-red-500 bg-red-100 px-2 py-3 mb-3">
+              <% errorsMsg.forEach(err => {%>
+                 <p> <%- err %> </p>   
+              <%}) %>
+          </div><%}%> 
+          <% if(successMsg.length>0){%>
+            <p style="text-align:start; direction: rtl;" class="bg-green-300 text-green-500 p-3 mb-2"><%- successMsg[0] %></p>
+          <%} %>
+        <form method="post">
+          <div class="inputForm mt-4">
+            <div>
+              <label class="text-white dark:text-gray-200" for="title">عنوان</label>
+              <input id="title" name="title" type="text"
+                class="rtl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+            </div>
+           
+
+            <div>
+              <label class="text-white dark:text-gray-200" for="status">وضعیت</label>
+              <select
+                name="status"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                <option value="Basic">پایه ای</option>
+                <option value="Advance">پیشرفته</option>
+                <option value="EnterPrise">حرفه ای</option>
+
+              </select>
+            </div>
+
+            <div>
+                <label class="text-white dark:text-gray-200" for="price">قیمت</label>
+                <input id="price" name="price" type="number"
+                  class="rtl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+              </div>
+
+            <div>
+              <label class="text-white dark:text-gray-200" for="passwordConfirmation">توضیحات</label>
+              <textarea id="textarea" type="textarea" name="description"
+                class="rtl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+            </div>
+         
+          </div>
+
+          <div class="flex justify-end mt-6">
+            <button
+              class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">ثبت</button>
+          </div>
+        </form>
+      </section>
+
+    </main>

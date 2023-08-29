@@ -1,0 +1,59 @@
+<section style="max-width: 700px; margin-top: 2rem;" class="px-3 bg-white dark:bg-gray-900 py-8 lg:py-16">
+    <div class="max-w-2xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">کامنت ها (<%- blog?.comments?.length || 0%>)</h2>
+      </div>
+      <form id="commentForm" class="mb-6" method="post" action="/comment/create/<%-blog.slug%>">
+          <div  class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+              <textarea id="comment" rows="6" 
+                  name="text"
+                  class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                  placeholder="کامنتی بنویسید ..." required></textarea>
+          </div>
+          <button type="submit"
+             style="background-color:#fd3d57; width: 90px; font-size: 1.2rem;" class=" rounded-md px-3 py-2 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+              ثبت
+          </button>
+      </form>
+      <% if(blog?.comments?.length){%>
+        
+        <% blog.comments.forEach(comment => {%>
+            <% if(comment.parent == null){%>
+             
+                <article style="padding-top: 10px; background:#fd3d57; padding: 10px 12px;" class="rounded-md text-base bg-white rounded-lg dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900 mt-2">
+                    <footer class="flex justify-between items-center mb-2">
+                        <div  class="flex items-center">
+                            <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white"><%- comment.user.username %></p>
+                            <p class="text-sm text-white dark:text-gray-400 mr-2"><%- comment.jdate() %></time></p>
+                            
+                        </div>
+                       
+                    </footer>
+                    <p class="description text-red dark:text-gray-400 rounded-md" style="background-color: white; color: #fd3d57; padding: 5px 8px;"><%- comment.text %></p>
+                    <div class="flex items-center mt-4 space-x-4">
+                        <button type="button"
+                            style="color: white; font-size: 16px;"
+                            data-id="<%- comment.id %>"
+
+                            class="replyButton flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400">
+                        
+                            پاسخ
+                        </button>
+                    </div>
+                </article>
+                <% blog.comments.forEach(child =>{%>
+                    <% if(child.parent !== null && child.parent.id == comment.id){%>
+                            <%- include('./replyComment',{comment:child, blog}) %>  
+                    <%} %>
+                     
+                <%}) %>
+            <%}%>
+            
+                 
+            
+        <%}) %>
+        
+      <%} %>
+   
+    </div>
+  </section>

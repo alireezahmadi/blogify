@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="tailwind,tailwindcss,tailwind css,css,starter template,free template,admin templates, admin template, admin dashboard, free tailwind templates, tailwind example">
+    <!-- Css -->
+    <%- include('./based/HeaderRef') %>
+    <title><%- defineContent('title') %></title>
+</head>
+
+<body>
+<!--Container -->
+<div class="mx-auto bg-grey-400">
+    <!--Screen-->
+    <div class="min-h-screen flex flex-col">
+        <!--Header Section Starts Here-->
+        <%- include('./based/Header') %>
+      
+        <!--/Header-->
+
+        <div class="flex flex-1">
+           
+            <!--Main-->
+            <%- defineContent('body') %>
+            <!--/Main-->
+            <!--Sidebar-->
+             <%- include('./based/Sidebar') %>
+            
+            <!--/Sidebar-->
+        </div>
+        <!--Footer-->
+        <%- include('./based/Footer') %>
+        
+        <!--/footer-->
+
+    </div>
+
+</div>
+<%- include('./based/FooterRef') %>
+<%- script %>
+</body>
+
+
+</html>
+
+

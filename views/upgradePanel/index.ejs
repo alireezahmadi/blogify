@@ -1,0 +1,63 @@
+<%- contentFor('title')%>
+    ارتقای پنل کاربری
+   
+    <%- contentFor('body')%>
+   
+    <section class="bg-white ">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+           
+            <div class="space-y-8 md:grid md:grid-cols-2  lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+                <!-- Pricing Card -->
+                <% for(let panel of panels){%>
+                    <div class=" max-w-[250px]  flex flex-col justify-between p-6  max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+                        <h3 class="mb-4 text-2xl font-semibold"><%- panel.title%></h3>
+
+                        <div class="mb-8">
+                            <span class="mr-2 text-5xl font-extrabold">
+                                <% if(panel.price > 0){%>
+                                    <div><%- panel.price%>  </div>    
+                                    <span>تومان</span>
+                                <%}else{%>
+                                    رایگان    
+                                <%} %>
+                            </span>
+                            
+                        </div>
+                        <!-- List -->
+                        
+                        <ul role="list" class="mb-8 space-y-4 rtl">
+                            <% panel.description.split('-').forEach(item => {%>
+                                <% if(item.length){%>
+                                    <li class="flex items-center space-x-3">
+                                        <!-- Icon -->
+                                        <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                        <span><%- item%></span>
+                                    </li>
+                                    
+                                <%} %>
+                                
+                            <%}) %>
+                            
+                        </ul>
+                        <% if(auth?.user){%>
+                            
+                            <% if(auth.user.panel != panel.id){%>
+                                <form action="/cart/create/<%- panel.id %>" method="post">
+                                    <button type="submit" class=" block w-full text-[#020617] bg-white hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center   dark:focus:ring-primary-900">
+                                        شروع
+                                    </button>
+                                    
+                                </form>
+                            <%}else{%>
+                                <p  class=" block w-full text-xl text-[#020617] bg-white hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900" >شما دارای این پنل میباشید</p>    
+                            <%} %>    
+                        <%}else{%>
+                            <a  class=" block text-xl w-full text-[#020617] bg-white hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900" href="/auth/login">ابتدا وارد سایت شوید</a>    
+                        <%} %>
+                    </div>
+                    
+                <%} %>
+            
+            </div>
+        </div>
+      </section>

@@ -1,0 +1,183 @@
+<%- contentFor('title') %>
+    دیدگاه ها
+    <%- contentFor('body') %>
+        <!-- Card Sextion Starts Here -->
+        <div class="" style="flex:2">
+
+
+            <div class="tableBox flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+
+                <!-- card -->
+
+                <div class="commentBox rounded overflow-hidden shadow bg-white mx-2 w-full">
+                    <div class="px-6 py-2 border-b border-light-grey">
+                        <div class="font-bold text-xl rtl"> دیدگاها</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class=" rtl table text-grey-darkest">
+                            <thead class="bg-grey-dark text-white text-normal">
+                                <tr>
+                                    <th scope="col">شماره</th>
+                                    <th scope="col">متن دیدگاه</th>
+                                    <th scope="col">مقاله</th>
+                                    <th scope="col">از طرف</th>
+                                    <th scope="col">تایید</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(comments.docs.length> 0){%>
+                                    <% comments.docs.forEach((comment, index)=>{%>
+                                        <tr>
+                                            <th scope="row"><%- index +1 %></th>
+
+                                            <td>
+                                                <p class="rtl text-sm "><%- comment.text.substr(0,20) %></p>
+                                            </td>
+                                            <td>
+                                                <p style="color:#1565C0;" class="rtl text-sm ">
+                                                    <a href="/blog/<%-comment.blog[0].slug %>"><%-
+                                                            comment.blog[0].title.substr(0,100) %></a>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="rtl text-sm "><%- comment.user[0].username %></p>
+                                            </td>
+                                            <td>
+                                                <% if(comment.checked){%>
+                                                    <span>✅</span>
+                                                    <%}else{%>
+                                                        <span>❌</span>
+                                                        <%}%>
+                                            </td>
+                                            <td>
+                                                <div class="flex flex-row justify-center items-center ">
+                                                    <div>
+                                                            <button type="button"
+                                                            data-action="/panel/comment/delete/<%- comment._id%>"
+                                                            data-text = '<%- comment.text %>'
+                                                            class="deleteBtn px-4 py-2 bg-red-500 text-center text-white rounded-sm ml-1">حذف</button>
+                                                      
+                                                    </div>
+                                                    <% if(!comment.checked){%>
+
+                                                        <button type="button"
+                                                            data-action="/panel/comment/update/<%-comment._id%>"
+                                                            data-text="<%- comment.text%>"
+                                                            class="updateBtn px-4 py-2 bg-blue-500 text-center text-white rounded-sm">
+                                                            ویرایش
+                                                        </button>
+                                                        <%} %>
+                                                </div>
+                                            </td>
+
+
+
+
+                                        </tr>
+
+                                        <%})%>
+
+
+                                            <%} %>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /card -->
+
+            </div>
+
+            <%- include('../pagination/index',{obj:comments, url:'/panel/comment/getAll'}) %>
+        </div>
+
+
+        <!-- /Cards Section Ends Here -->
+
+        <script>
+            console.clear()
+            const updateBtns = document.querySelectorAll('.updateBtn')
+            const deleteBtns = document.querySelectorAll('.deleteBtn')
+            const creatModal = (text, actionUrl, actionType) => {
+
+                const element = document.createElement('div')
+                const div = document.createElement('div')
+                const header = document.createElement('h3')
+                const p = document.createElement('p')
+                const formBox = document.createElement('form')
+                const input = document.createElement('input')
+                const btnSuccess = document.createElement('button')
+                const btnCancel = document.createElement('button') 
+                element.className = 'modalBox'
+                element.style = `direction:rtl ;position: fixed; top:2rem; border-radius: 12px; left: 50%; transform: translateX(-50%); width: 350px; padding: 15px 17px; ${actionType === 'update' ? "background-color: #8795a1":"background-color: #f56565"}` 
+                header.style =  'color: white;margin-bottom:0.5rem'
+                header.textContent = actionType === 'update'? 'ویرایش دیدگاه': 'حذف دیدگاه' 
+                formBox.action = actionUrl 
+                formBox.method = 'post'   
+                p.textContent = actionType === 'update' ? `آیا دیدگاه"${text}" تایید شود ؟`: `آیا دیدگاه"${text}" حذف شود ؟`
+                input.type = 'checkbox' 
+                input.name =  'checked' 
+                
+                input.hidden = true
+                div.style = 'display: flex; margin: 18px 0; 10px'
+                btnSuccess.style = 'padding: 8px 12px; background-color: #4CAF50; color: white; border-radius: 12px; margin-left: 0.5rem;'
+                btnSuccess.type = 'submit' 
+                btnSuccess.textContent = 'تایید' 
+                btnSuccess.onclick = () => input.checked = false
+                btnCancel.style = 'padding: 8px 12px; background-color: #E53935; color: white; border-radius: 12px;;'
+                btnCancel.type = 'button' 
+                btnCancel.textContent = 'انصراف'
+                btnCancel.onclick = (e) => element.style.display = 'none'
+               
+               
+                div.appendChild(btnSuccess)
+                div.appendChild(btnCancel)
+                formBox.appendChild(p)
+                formBox.appendChild(input)
+                formBox.appendChild(div)
+                element.appendChild(header)
+                element.appendChild(formBox)
+                return element
+               
+            } 
+            const handleModal = (target, actionType) => {
+                    const text = target.dataset.text
+                    const actionUrl = target.dataset.action 
+                    const modalBox = document.querySelectorAll('.modalBox')
+
+                    const arrModalBox = Array.from(modalBox) 
+                    if(arrModalBox.length > 0){
+                        arrModalBox.forEach(modal => {
+                            modal.parentElement.removeChild(modal)
+                        })
+                    }
+                    const newModal = creatModal(text, actionUrl, actionType)
+                    document.querySelector('.tableBox').insertAdjacentHTML('beforeend', newModal.outerHTML)
+                    document.querySelector('.modalBox button[type="button"]').onclick = (e) => {
+                        const modal = e.target.closest('.modalBox') 
+                        modal.parentElement.removeChild(modal)
+                    }
+                    document.querySelector('.modalBox button[type="submit"]').onclick = (e) => {
+                        const modal = e.target.closest('.modalBox') 
+                        if(actionType == 'update'){
+                            modal.querySelector('input[type="checkbox"]').checked = true
+
+                        }
+                        modal.querySelector('form').submit()
+                        modal.parentElement.removeChild(modal)
+                    }
+            } 
+
+            Array.from(updateBtns).forEach(Button =>{
+                Button.addEventListener('click', (e)=>handleModal(e.target, 'update') )
+            } )
+            Array.from(deleteBtns).forEach(Button =>{
+                Button.addEventListener('click', (e)=>handleModal(e.target, 'delete') )
+            } )
+                
+    
+            
+        </script>

@@ -1,0 +1,21 @@
+<nav class="bg-gray-800">
+    <div class="container flex">
+
+
+        <div class="flex rtl items-center justify-center flex-grow md:pl-12 py-5">
+            <div class="flex items-center space-x-6">
+                <a href="/" class="ml-8 text-gray-200 hover:text-white transition">صفحه اصلی</a>
+                <a href="/upgrade/panel" class="text-gray-200 hover:text-white transition">ارتقای پنل کاربری</a>
+
+                <% if (auth.check){%>
+                    <a href="/panel" class="text-gray-200 hover:text-white transition">پنل</a>
+                    <a href="/auth/logout" class="text-gray-200 hover:text-white transition">خروج</a>
+                    <%} else {%>
+                        <a href="/auth/login" class="text-gray-200 hover:text-white transition">ورود</a>
+                        <a href="/auth/register" class="text-gray-200 hover:text-white transition">ثبت نام</a>
+
+                    <%}%>
+                
+            </div>
+        </div>
+</nav>

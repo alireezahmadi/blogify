@@ -1,0 +1,68 @@
+<%- contentFor('title') %>
+سبد خرید
+<%- contentFor('body') %>
+
+<div class="container rtl grid grid-cols-12 items-start gap-6 pt-4 pb-16">
+
+
+    <!-- wishlist -->
+    <div class="col-span-9 space-y-4">
+        <% if(cart){%>
+            <div class="flex items-center justify-between border gap-6 p-4 border-gray-200 rounded">
+          
+                <div class="w-1/3">
+                    <h2 class="text-gray-800 text-xl font-medium uppercase">ارتقای پنل:  <%- cart.panel.title %></h2>
+                    <p class="text-gray-500 text-sm">نوع:  <span class=" mr-1 text-green-600">
+                        <%if(cart.panel.status === 'Advance'){%>
+                            پیشرفته
+                        <%}else if(cart.panel.status === 'EnterPrise'){%>
+                            حرفه ای
+                        <%}else{%>
+                            ساده    
+                        <%}%>
+                    </span></p>
+                </div>
+                <div class="text-primary text-lg font-semibold"><%- cart.panel.price > 0 ? `${cart.panel.price} تومان`:'رایگان'  %></div>
+                
+                
+                <form id="payment" action="/cart/payment/<%- cart.id%>" method="post">
+                    <button type="submit" class="px-6 py-2 text-center text-sm text-white bg-red-500 border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">
+                        پرداخت
+    
+                    </button>
+                    
+                </form>
+                
+                <form action="/cart/delete/<%- cart.id%>" method="post">
+                    <button type="submit">
+                        <div class="text-gray-600 cursor-pointer hover:text-primary">
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
+    
+                    </button>
+                    
+                </form>
+            </div>
+            
+        <%}else{%>
+            <p>در حال حاضر سبد خرید شما خالی هست</p>    
+        <%} %>
+
+    </div>
+    <!-- ./wishlist -->
+
+</div>
+
+
+<script>
+    console.clear() 
+    console.log('***Cart page***') 
+    const paymentForm = document.getElementById('payment') 
+    paymentForm.addEventListener('submit', (e)=> {
+        e.preventDefault()
+        const confirm = window.confirm('آیا از پرداخت خود مطمئن هستید؟')
+        if(confirm){
+            paymentForm.submit()
+        }
+    })
+</script>

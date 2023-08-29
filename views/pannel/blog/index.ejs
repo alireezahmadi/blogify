@@ -1,0 +1,117 @@
+<%- contentFor('title') %>
+    مقالات
+    <%- contentFor('body') %>
+    
+        <!-- Card Sextion Starts Here -->
+        <div style="flex:2">
+
+            <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+    
+                <!-- card -->
+    
+                <div class=" rounded overflow-hidden shadow bg-white mx-2 w-full">
+                    <div class="px-6 py-2 border-b border-light-grey">
+                        <div class="font-bold text-xl rtl">لیست مقالات</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class=" rtl table text-grey-darkest">
+                            <thead class="bg-grey-dark text-white text-normal">
+                                <tr>
+                                    <th scope="col">شماره</th>
+                                    <th scope="col">تصویر</th>
+                                    <th scope="col">عنوان</th>
+                                    <th scope="col">دسته بندی</th>
+                                    <th scope="col">نویسنده</th>
+                                    <th scope="col">وضعیت</th>
+                                    <th scope="col">ویژه</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(blogs.docs.length> 0){%>
+                                    <% blogs.docs.forEach((blog, index)=>{%>
+                                        <tr>
+                                            <th scope="row"><%- index +1 %></th>
+                                            <td>
+                                                <div>
+                                                    <img src=<%- blog.image%> class="relative rounded-sm overflow-hidden"
+                                                    style="width:150px" alt="<%- blog.id %>">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="rtl text-sm "><%- blog.title.substr(5) %>...</p>
+                                            </td>
+                                            <td>
+                                                <% if(blog.categories.length){%>
+                                                    <% for(let cat of blog.categories){%>
+                                                        <span style="margin-left: 0.5rem;">#<%- cat.title%></span>
+                                                    <%} %>    
+                                                   
+                                                <%}else{%>
+                                                    <span>---</span>    
+                                                <%} %>
+                                            </td>
+                                            <td><%- blog.author[0].username %></td>
+                                            <td style="width: 120px;">
+                                                <% if(blog.status==='puplished' ){%>
+                                                    <div class="text-sm bg-green-500 p-2 rounded-sm text-center text-white">
+                                                        منتشر شده</div>
+                                                    <%}else if(blog.status==='unPuplished' ){%>
+                                                        <div
+                                                            class="text-sm bg-gray-500 p-2 rounded-sm text-center text-white">
+                                                            منتشر نشده</div>
+                                                        <%}else if(blog.status==='pending' ){%>
+                                                            <div
+                                                                class="text-sm bg-yellow-500 p-2 rounded-sm text-center text-white">
+                                                                در حال بررسی</div>
+                                                            <%}else if(blog.status==='delete' ){%>%
+                                                                <div
+                                                                    class="text-sm bg-red-500 p-2 rounded-sm text-center text-white">
+                                                                    حذف شده</div>
+                                                                <%} %>
+                                            </td>
+                                            <td>
+                                                <% if(blog.isSpecial){%>
+                                                    <span>✅</span>
+                                                    <%}else{%>
+                                                        <span>❌</span>
+                                                        <%} %>
+                                            </td>
+                                            <td>
+                                                <div class="flex flex-row justify-center items-center ">
+                                                    <div>
+                                                        <form method="post" action="/panel/blogs/delete/<%- blog.slug %>">
+                                                            
+                                                            <button type="submit"
+                                                                class="px-4 py-2 bg-red-500 text-center text-white rounded-sm ml-1">حذف</button>
+                                                        </form>
+                                                    </div>
+                                                    <button class="px-4 py-2 bg-blue-500 text-center text-white rounded-sm">
+                                                        <a href="/panel/blogs/update/<%- blog.slug%>">ویرایش</a>
+                                                    </button>
+                                                </div>
+                                            </td>
+    
+    
+    
+                                        </tr>
+    
+                                        <%})%>
+    
+    
+                                            <%} %>
+    
+    
+    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /card -->
+                
+            </div>
+
+            <%- include('../pagination/index',{obj:blogs, url:'/panel/blogs'}) %>
+        </div>
+      
+        <!-- /Cards Section Ends Here -->
